@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io/github/pabloubal/ratelimiter/infra/grpcapi"
 	"io/github/pabloubal/ratelimiter/infra/webapi/privateapi"
 	"io/github/pabloubal/ratelimiter/infra/webapi/publicapi"
 	"io/github/pabloubal/ratelimiter/internal/domain"
@@ -21,9 +22,11 @@ func main() {
 
 	srv := publicapi.Serve(ucRQEndpoint)
 	adminSrv := privateapi.Serve(ucAddEndpoint)
+	protoPrivSrv := grpcapi.Serve(ucAddEndpoint)
 
 	<-doneChan
 	adminSrv.Shutdown(ctx)
 	srv.Shutdown(ctx)
+	protoPrivSrv.Stop()
 	log.Println("Done")
 }

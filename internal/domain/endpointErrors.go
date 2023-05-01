@@ -27,12 +27,8 @@ func ErrorRemoteCall(msg string) *remoteCallError {
 
 /***********/
 
-type RestError struct {
-	Message string `json:"message"`
-}
-
 type RestApiError interface {
-	Error() RestError
+	Error() string
 	StatusCode() int
 	Header() http.Header
 }
@@ -47,8 +43,8 @@ func NewRestApiError(msg string, code int, header http.Header) *restApiError {
 	return &restApiError{message: msg, statusCode: code, header: header}
 }
 
-func (r *restApiError) Error() RestError {
-	return RestError{Message: r.message}
+func (r *restApiError) Error() string {
+	return r.message
 }
 
 func (r *restApiError) StatusCode() int {

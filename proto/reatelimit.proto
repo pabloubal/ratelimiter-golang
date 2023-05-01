@@ -1,7 +1,6 @@
 syntax = "proto3";
-
-import "google/protobuf/empty.proto";
-package RateLimiterGRPC
+package RateLimiterGRPC;
+option go_package = "io/github/pabloubal/ratelimiter/proto";
 
 message CreateEndpointRQ {
     string url = 1;
@@ -10,9 +9,9 @@ message CreateEndpointRQ {
     int32 limit = 4;
 }
 message CreateEndpointRS {
+    string msg = 1;
 }
 
-_method = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 message RequestEndpointRQ {
     enum Method {
         GET = 0;
@@ -25,7 +24,6 @@ message RequestEndpointRQ {
     string url = 2;
     string body = 3;
     string headers = 4;
-    optional bytes body = 5;
 }
 message RequestEndpointRS {
 }

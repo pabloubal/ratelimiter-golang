@@ -8,3 +8,6 @@ HTTP Rate limiter. Sits in front of http endpoints and limits the amount of requ
 
 # Things to improve
 - Domain shouldn't be pegged to RestAPIErrors. They should be generic errors and get their translation to rest api errors in the infra layer
+
+
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/ratelimit.proto
