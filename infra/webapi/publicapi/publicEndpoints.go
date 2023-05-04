@@ -2,6 +2,7 @@ package publicapi
 
 import (
 	"io/github/pabloubal/ratelimiter/infra/webapi"
+	"io/github/pabloubal/ratelimiter/internal/mapper"
 	"io/github/pabloubal/ratelimiter/internal/usecases/endpoint"
 	"net/http"
 )
@@ -19,7 +20,8 @@ func NewPublicEndpointsController(svcRQ endpoint.RequestEndpointService) *public
 }
 
 func (e *publicEndpointsController) Request(w http.ResponseWriter, r *http.Request) {
-	resp, err := e.svcRQ.RequestEndpoint(r)
+	entity := mapper.RQToEntity(r)
+	resp, err := e.svcRQ.RequestEndpoint(entity)
 	if err != nil {
 		webapi.SendError(err, w)
 		return

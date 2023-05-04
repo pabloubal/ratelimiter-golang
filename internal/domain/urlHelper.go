@@ -11,7 +11,7 @@ func GetUrl(urlObj url.URL, rq Request) url.URL {
 	if len(scheme) == 0 {
 		scheme = "http"
 	}
-	rqPath := rq.Request().URL.Path
+	rqPath := rq.Path()
 	var path string
 
 	if len(urlObj.Path) > 0 {
@@ -20,7 +20,7 @@ func GetUrl(urlObj url.URL, rq Request) url.URL {
 		path = rqPath
 	}
 
-	query := rq.Request().URL.RawQuery
+	query := rq.RawQuery()
 
 	return url.URL{Scheme: scheme, Host: host, Path: path, RawQuery: query}
 }

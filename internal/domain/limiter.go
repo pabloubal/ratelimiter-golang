@@ -78,13 +78,13 @@ func (l *limiter) callEndpoint(rm RemoteEndpoint, rq Request) (*http.Response, R
 
 	url := GetUrl(rm.Url(), rq)
 
-	request, err := http.NewRequest(rq.Method(), url.String(), rq.Request().Body)
-	defer rq.Request().Body.Close()
+	request, err := http.NewRequest(rq.Method(), url.String(), rq.Body())
+	defer rq.Body().Close()
 	if err != nil {
 		log.Println(err)
 		return nil, ErrorRemoteCall(err.Error())
 	}
-	request.Header = rq.Request().Header
+	request.Header = rq.Header()
 
 	resp, err := client.Do(request)
 	if err != nil {

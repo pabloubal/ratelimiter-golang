@@ -22,10 +22,17 @@ message RequestEndpointRQ {
     }
     Method method = 1;
     string url = 2;
-    string body = 3;
-    string headers = 4;
+    bytes body = 3;
+    repeated HeaderEntry headers = 4;
+}
+message HeaderEntry {
+    string key = 1;
+    repeated string val = 2;
 }
 message RequestEndpointRS {
+    int32 statusCode = 1;
+    repeated HeaderEntry headers = 2;
+    bytes body = 3;
 }
 
 service RateLimiter {

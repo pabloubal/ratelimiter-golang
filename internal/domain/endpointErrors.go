@@ -10,6 +10,7 @@ var (
 	ErrorEndpointAlreadyExists = &endpointAlreadyExistsError{NewRestApiError("Endpoint already registered", http.StatusBadRequest, nil)}
 	ErrorEndpointDoesNotExist  = &endpointDoesNotExistError{NewRestApiError("Requested endpoint does not exist", http.StatusNotFound, nil)}
 	ErrorBadURLFormat          = &badURLError{NewRestApiError("Bad URL Format", http.StatusBadRequest, nil)}
+	ErrorRequestParseError     = &requestParseError{NewRestApiError("Request Parse Error", http.StatusInternalServerError, nil)}
 )
 
 func ErrorLimitReached(limit int64) *endpointLimitReachedError {
@@ -76,5 +77,9 @@ type remoteCallError struct {
 }
 
 type badURLError struct {
+	*restApiError
+}
+
+type requestParseError struct {
 	*restApiError
 }
